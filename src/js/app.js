@@ -57,6 +57,8 @@ App = {
       console.log(result.toString())
     })
 
+    App.EnergyToken.address()
+
   },
 
   render: async => {
