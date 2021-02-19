@@ -47,7 +47,11 @@ App = {
 
     App.EnergyToken = await App.contracts.EnergyToken.deployed()
 
-    console.log(App.FixedDeposit)
+    console.log(App.EnergyToken)
+
+    App.EnergyToken.name({from: "0x9423A7c0632DeF23714f69906B45D3A0f5BB33Ef"}).then(result => {
+      console.log(result)
+    })
 
   },
 

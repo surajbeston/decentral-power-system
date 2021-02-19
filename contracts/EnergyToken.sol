@@ -42,7 +42,7 @@ contract EnergyToken is ERC777 {
           }
 
 
-    constructor(uint256 initialSupply, address[] memory _defaultOperators)  ERC777("EnergyToken", "ETN", _defaultOperators) public
+    constructor(uint256 initialSupply, address[] memory _defaultOperators) public  ERC777("EnergyToken", "ETN", _defaultOperators) 
     {
         defaultoperators = _defaultOperators;
     }
