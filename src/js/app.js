@@ -28,9 +28,7 @@ App = {
         App.web3Provider = window.web3.currentProvider;
       }
       // If no injected web3 instance is detected, fall back to Ganache
-      else {
-        App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
-      }
+      
       web3 = new Web3(App.web3Provider);
     }, 
   loadAccount: async () => {
@@ -41,6 +39,16 @@ App = {
   },
 
   loadContract: async () => {
+    var EnergyToken = await $.getJSON('EnergyToken.json');
+
+    App.contracts.EnergyToken = TruffleContract(EnergyToken);
+
+    App.contracts.EnergyToken.setProvider(App.web3Provider)
+
+    App.EnergyToken = await App.contracts.EnergyToken.deployed()
+
+    console.log(App.FixedDeposit)
+
   },
 
   render: async => {
