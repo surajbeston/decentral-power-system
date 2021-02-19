@@ -49,8 +49,12 @@ App = {
 
     console.log(App.EnergyToken)
 
-    App.EnergyToken.name({from: "0x9423A7c0632DeF23714f69906B45D3A0f5BB33Ef"}).then(result => {
+    App.EnergyToken.name({from: App.account }).then(result => {
       console.log(result)
+    })
+    App.EnergyToken.currentLot({from: App.account}).then(result => {
+      // console.log(toString(result));
+      console.log(result.toString())
     })
 
   },
