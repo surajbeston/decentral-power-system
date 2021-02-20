@@ -11,11 +11,11 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" style="font-size: 25px;font-weight: 900;" href="#">Navbar</a>
+      <a class="navbar-brand" style="font-size: 25px;font-weight: 900;" href="/#/">PowerSystem</a>
       <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> -->
         <!-- <span class="navbar-toggler-icon"></span> -->
       </button>
-      <ul class="nav justify-content-end"">
+      <ul class="nav" style="margin-left: auto;">
         <li class="nav-item active">
           <a class="nav-link" style="font-weight: 700;" href="/#/">Home <span class="sr-only">(current)</span></a>
         </li>
@@ -26,30 +26,27 @@
     </nav>
   <div class="container">
       <div class="search-container">
-
+        <div class="search-box">
+          <input type="text" class="search" id="search" placeholder="Search">
+          <button type="button" class="btn btn-dark">Search</button>
+        </div>
       </div>
       <div class="lot-detail-container" style="display: none;">
-          <div class="powerplant each-flex">
-            <span class="powerplant-id">01</span>
-            <span class="powerplant-id">01</span>
-            <span class="powerplant-id">01</span>
+          <div class="plant each-flex">
+            <h2 class="each-flex-head">Plant</h2>
           </div>
           <img class="down-arrow-image" src="images/arrow.png" alt="image loading...">
-          <div class="distributer each-flex">
-            <span class="powerplant-id">01</span>
-            <span class="powerplant-id">01</span>
-            <span class="powerplant-id">01</span>
+          <div class="distributor each-flex">
+            <h2 class="each-flex-head">Distributor</h2>
           </div>
           <img class="down-arrow-image" src="images/arrow.png" alt="image loading...">
           <div class="consumer each-flex">
-            <span class="powerplant-id">01</span>
-            <span class="powerplant-id">01</span>
-            <span class="powerplant-id">01</span>
+            <h2 class="each-flex-head">Consumer</h2>
           </div>
       </div>
       <div class="flex-container">
           
-        <div class="card" style="width: 18rem;">
+        <!-- <div class="card" style="width: 18rem;">
             <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -68,7 +65,7 @@
                 </div>
             </div>   
         </div>  
-      </div>
+      </div> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

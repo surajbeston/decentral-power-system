@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap');
 a{
     color: rgb(68, 68, 68);
 }
@@ -10,9 +12,29 @@ a{
     flex-wrap: wrap;
     
 }
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.search-box {
+    width: 70%;
+    display: inline;
+}
+.search {
+    width: 80%;
+    font-size: 18px;
+    padding: 2px 5px;
+}
+.btn {
+    min-width: 10%;
+}
 
 .card {
     margin: 10px;
+}
+.card-link:hover {
+    text-decoration: underline;
 }
 
 .lot-detail-container {
@@ -26,9 +48,21 @@ a{
     align-items: center;
 }
  .each-flex {
+     padding: 5px;
      width: 50%;
      background-color: rgb(176, 231, 189);
-     height: 25vh;
+     border-radius: 5px;
+     min-height: 25vh;
+     box-shadow: 0 10px 5px rgb(216, 216, 216);
+     margin-bottom: 2vh;
+     font-family: 'Patrick Hand', cursive;
+ }
+ .each-flex-head {
+    font-family: 'Comfortaa', cursive;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 4vh;
  }
   .down-arrow-image {
       transform: rotateZ(90deg);
