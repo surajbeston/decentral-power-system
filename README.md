@@ -1,4 +1,4 @@
-# Decentralised Power Distribution System Using Blockchain
+# Decentralized Power Distribution System Using Blockchain
 
 [![front.jpg](https://i.postimg.cc/7PNyZsfs/front.jpg)](https://postimg.cc/F116Pxb3)
 
