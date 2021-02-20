@@ -55,7 +55,7 @@ App = {
       console.log(result)
     })
 
-    var noOfLots = await App.getNoOfLots()
+    App.noOfLots = await App.getNoOfLots()
     // console.log(await App.getPlantLog(2))
     // console.log(await App.getDistributorLog(2))
     // console.log(await App.getConsumerLog(2))
@@ -93,18 +93,18 @@ App = {
 
   render: async => {
     var lotsCardHtml = "";
-   App.lots.forEach(lot => {
-      lotsCardHtml += `
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-            <h5 class="card-title">${lot.id}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#/lot/${lot.id}" class="card-link" style="color: blue;">Check Lot</a>
-            </div>
-        </div>
-      `
-   })
+  //  App.lots.forEach(lot => {
+  //     lotsCardHtml += `
+  //       <div class="card" style="width: 18rem;">
+  //           <div class="card-body">
+  //           <h5 class="card-title">${lot.id}</h5>
+  //           <h6 class="card-subtitle mb-2 text-muted">12 hr 15 min 56 sec ago</h6>
+  //           <p class="card-text">200 units</p>
+  //           <a href="#/lot/${lot.id}" class="card-link" style="color: blue;">Check Lot</a>
+  //           </div>
+  //       </div>
+  //     `
+  //  })
    $('.flex-container').html(lotsCardHtml)
   },
   lotDetail:async (id) => {
@@ -123,47 +123,86 @@ App = {
     var plantData = await App.getPlantLog(id)
     var distributorData = await App.getDistributorLog(id)
     var consumerData = await App.getConsumerLog(id)
-    // console.log(plantData)
-    var plantHtml = `<h2 class="each-flex-head">Plant</h2>
-            <p class="each-flex-p">
-              <h4>Units: ${plantData.units}</h4>
-            </p>
-            <p class="each-flex-p">
+    console.log(plantData)
+    var plantHtml = `
+            <h2 class="each-flex-head">Plant</h2>
+            <div class="each-flex-p units-flex">
+             <p style="font-size: 20px;font-weight: 900;color: rgb(214, 214, 214);">${plantData.units}</p> 
+             <p style="color: rgb(214, 214, 214);">units</p>
+            </div>
+          <!--  <p class="each-flex-p">
               <h4>Lot: ${plantData.lot}</h4>
-            </p>
-            <p class="each-flex-p">
-              <h4>Time: ${plantData.time}</h4>
-            </p>`
-     var distributorHtml = `<h2 class="each-flex-head">Distributor</h2>
-            <p class="each-flex-p">
-              <h4>Units: ${distributorData.units}</h4>
-            </p>
-            <p class="each-flex-p">
+            </p> -->
+            <div class="each-flex-p time-flex">
+              <h5>${plantData.time[0]} hrs ${plantData.time[1]} min ${plantData.time[2]} sec ago</h5>
+            </div>
+    `
+     var distributorHtml = `
+            <h2 class="each-flex-head">Distributor</h2>
+            <div class="each-flex-p units-flex">
+             <p style="font-size: 20px;font-weight: 900;color: rgb(214, 214, 214);">${distributorData.units}</p> 
+             <p style="color: rgb(214, 214, 214);">units</p>
+            </div>
+           <!-- <p class="each-flex-p">
               <h4>Lot: ${distributorData.lot}</h4>
-            </p>
-            <p class="each-flex-p">
-              <h4>Time: ${distributorData.time}</h4>
-            </p>`
-      var consumerHtml = `<h2 class="each-flex-head">Consumer</h2>
-            <p class="each-flex-p">
-              <h4>Units: ${consumerData.units}</h4>
-            </p>
-            <p class="each-flex-p">
+            </p> -->
+            <div class="each-flex-p time-flex">
+              <h5>${distributorData.time[0]} hrs ${distributorData.time[1]} min ${distributorData.time[2]} sec ago</h5>
+            </div>
+     `
+      var consumerHtml = `
+            <h2 class="each-flex-head">Consumer</h2>
+            <div class="each-flex-p units-flex">
+             <p style="font-size: 20px;font-weight: 900;color: rgb(214, 214, 214);">${consumerData.units}</p> 
+             <p style="color: rgb(214, 214, 214);">units</p>
+            </div>
+           <!-- <p class="each-flex-p">
               <h4>Lot: ${consumerData.lot}</h4>
-            </p>
-            <p class="each-flex-p">
-              <h4>Time: ${consumerData.time}</h4>
-            </p>
+            </p> -->
+            <div class="each-flex-p time-flex">
+              <h5>${consumerData.time[0]} hrs ${consumerData.time[1]} min ${consumerData.time[2]} sec ago</h5>
+            </div>
             `
     $(".plant").html(plantHtml)
     $(".distributor").html(distributorHtml)
     $(".consumer").html(consumerHtml)
   },
 
-  Homepage: () => {
+  Homepage: async() => {
     $('.flex-container').show();
     $('.lot-detail-container').hide();
     $(".search-container").hide();
+    var homeHtml = ''
+    var allPlantLogs = []
+    while (true) {
+      if (App.noOfLots != undefined) {
+        break
+      }
+      await App.sleep(500);
+    }
+    var i = App.noOfLots;
+    console.log(App.noOfLots)
+    while (i >= 1) {
+      var aPlantLog = await App.getPlantLog(i);
+      aPlantLog.id = i
+      allPlantLogs.push(aPlantLog)
+      homeHtml += `
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title"><b style="font-size: 20px;">${aPlantLog.id}</b></h5>
+            <h6 class="card-subtitle mb-2 text-muted">${aPlantLog.time[0]} hrs ${aPlantLog.time[1]} min ${aPlantLog.time[2]} sec ago</h6>
+            <p class="card-text"><b style="font-size: 16px;">${aPlantLog.units}</b> units</p>
+            <div class="card-link-div">
+              <a href="#/lot/${aPlantLog.id}" class="card-link text-right" style="color: blue;">Check Lot</a>
+            </div>
+            </div>
+        </div>
+      `
+      i--;
+    }
+   $('.flex-container').html(homeHtml)
+    console.log(App.lots)
+    App.lots = allPlantLogs
   },
   searchLoaded: () => {
     $('.flex-container').hide();
@@ -179,7 +218,7 @@ App = {
     }
     var len = Url.length
     var toUrl = Url[i+1]
-    // console.log(toUrl)
+    console.log(toUrl)
    if(toUrl == "search"){
      App.searchLoaded();
    }
@@ -192,18 +231,26 @@ App = {
    }
   },
   unixTimestampToDate: (timestamp) => {
-    var date = new Date(timestamp * 1000);
-    return date;
+    var dateNow = Math.floor(new Date().getTime()/1000);
+    var totalSeconds = dateNow - timestamp;
+    // console.log(dateNow, timestamp) 
+    var date = new Date(totalSeconds * 1000).toISOString().substr(11, 8)
+    // var hours = Math.floor(totalSeconds/3600)
+    // var minutes = Math.floor(totalSeconds/60)
+    // var seconds = Math.floor(totalSeconds%60)
+    // console.log(hours, minutes, seconds)
+    // console.log(date)
+    return date.split(":")
   },
 
 
   lots: [ 
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    } 
+    // {
+    //   id: 1,
+    // },
+    // {
+    //   id: 2,
+    // } 
   ],
   sleep: function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -216,5 +263,8 @@ $(() => {
     App.load()
     App.hashChanged({newURL: window.location.href})
     window.onhashchange = App.hashChanged
+    var dateNow = new Date();
+    App.sleep(1000)
+    console.log(dateNow.getTime())
   })
 })
