@@ -8274,8 +8274,8 @@
     "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.4",
-  "updatedAt": "2021-02-19T16:35:56.688Z",
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-02-20T20:04:27.287Z",
   "devdoc": {
     "details": "Collection of functions related to the address type",
     "methods": {}
