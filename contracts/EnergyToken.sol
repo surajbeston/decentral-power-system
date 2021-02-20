@@ -1,6 +1,5 @@
 pragma solidity >=0.4.22 <0.9.0;
 
-
 import "@openzeppelin/contracts/token/ERC777/ERC777.sol";
 
 contract EnergyToken is ERC777 {
