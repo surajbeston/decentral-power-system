@@ -1,5 +1,7 @@
 # Decentralised Power Distribution System Using Blockchain
 
+[![front.jpg](https://i.postimg.cc/7PNyZsfs/front.jpg)](https://postimg.cc/F116Pxb3)
+
 ## Introduction 
 
 This project intends to transfer electric power from power plant, through distributor networks and to consumers in a transparent and
