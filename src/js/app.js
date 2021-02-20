@@ -35,11 +35,13 @@ App = {
       // App.account = web3.eth.accounts[0]
       App.account = web3.eth.accounts[0]
       console.log(web3.eth.accounts)
+      App.from_data = {from: App.account}
 
   },
 
   loadContract: async () => {
     var EnergyToken = await $.getJSON('EnergyToken.json');
+    
 
     App.contracts.EnergyToken = TruffleContract(EnergyToken);
 
@@ -49,16 +51,44 @@ App = {
 
     console.log(App.EnergyToken)
 
-    App.EnergyToken.name({from: App.account }).then(result => {
+    App.EnergyToken.name(App.from_data).then(result => {
       console.log(result)
     })
-    App.EnergyToken.currentLot({from: App.account}).then(result => {
-      // console.log(toString(result));
-      console.log(result.toString())
-    })
 
-    App.EnergyToken.address()
-
+    var noOfLots = await App.getNoOfLots()
+    // console.log(await App.getPlantLog(2))
+    // console.log(await App.getDistributorLog(2))
+    // console.log(await App.getConsumerLog(2))
+    
+  },
+  getNoOfLots: async () => {
+    var lot =  await App.EnergyToken.currentLot(App.from_data)
+    App.noOfLots = lot.toString()
+    return lot.toString()
+  },
+  getPlantLog: async lot => {
+    // if (!App.EnergyToken){
+    //    await App.loadContract()
+    // }
+    var data = await App.EnergyToken.plantLogs(lot, App.from_data)
+    var units = data[0].toString()
+    var time = data[2].toString()
+    time = App.unixTimestampToDate(time)
+    return { units, time, lot }
+  },
+  getDistributorLog: async lot => {
+    var data = await App.EnergyToken.distributorLogs(lot, App.from_data)
+    var units = data[0].toString()
+    var time = data[2].toString()
+    time = App.unixTimestampToDate(time)
+    return { units, time, lot }
+  },
+  getConsumerLog: async lot => {
+    var data = await App.EnergyToken.consumerLogs(lot, App.from_data)
+    var units = data[0].toString()
+    var time = data[2].toString()
+    time = App.unixTimestampToDate(time)
+    return { units, time, lot}
   },
 
   render: async => {
@@ -70,18 +100,64 @@ App = {
             <h5 class="card-title">${lot.id}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#/lot/${lot.id}" class="card-link">Card link</a>
+            <a href="#/lot/${lot.id}" class="card-link" style="color: blue;">Check Lot</a>
             </div>
         </div>
       `
    })
    $('.flex-container').html(lotsCardHtml)
   },
-  lotDetail:(id) => {
+  lotDetail:async (id) => {
     $(".flex-container").hide();
     $(".search-container").hide();
     $(".lot-detail-container").show()
-
+    $(".plant").html("");
+    $(".distributor").html("");
+    $(".consumer").html("");
+    while (true) {
+      if (App.EnergyToken != undefined) {
+        break
+      }
+      await App.sleep(500);
+    }
+    var plantData = await App.getPlantLog(id)
+    var distributorData = await App.getDistributorLog(id)
+    var consumerData = await App.getConsumerLog(id)
+    // console.log(plantData)
+    var plantHtml = `<h2 class="each-flex-head">Plant</h2>
+            <p class="each-flex-p">
+              <h4>Units: ${plantData.units}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Lot: ${plantData.lot}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Time: ${plantData.time}</h4>
+            </p>`
+     var distributorHtml = `<h2 class="each-flex-head">Distributor</h2>
+            <p class="each-flex-p">
+              <h4>Units: ${distributorData.units}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Lot: ${distributorData.lot}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Time: ${distributorData.time}</h4>
+            </p>`
+      var consumerHtml = `<h2 class="each-flex-head">Consumer</h2>
+            <p class="each-flex-p">
+              <h4>Units: ${consumerData.units}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Lot: ${consumerData.lot}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Time: ${consumerData.time}</h4>
+            </p>
+            `
+    $(".plant").html(plantHtml)
+    $(".distributor").html(distributorHtml)
+    $(".consumer").html(consumerHtml)
   },
 
   Homepage: () => {
@@ -103,7 +179,7 @@ App = {
     }
     var len = Url.length
     var toUrl = Url[i+1]
-    console.log(toUrl)
+    // console.log(toUrl)
    if(toUrl == "search"){
      App.searchLoaded();
    }
@@ -115,6 +191,10 @@ App = {
      App.Homepage();
    }
   },
+  unixTimestampToDate: (timestamp) => {
+    var date = new Date(timestamp * 1000);
+    return date;
+  },
 
 
   lots: [ 
@@ -124,7 +204,10 @@ App = {
     {
       id: 2,
     } 
-  ]
+  ],
+  sleep: function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  },
 
 }
 
