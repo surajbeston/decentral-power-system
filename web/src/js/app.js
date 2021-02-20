@@ -131,7 +131,7 @@ App = {
     var distributorData = await App.getDistributorLog(id)
     var consumerData = await App.getConsumerLog(id)
     var cost = await App.getCost()
-    cost = parseInt(cost) + 3
+    cost = parseInt(cost) + 5
     console.log(plantData)
     var plantHtml = `
             <h2 class="each-flex-head">Plant</h2>
@@ -210,7 +210,7 @@ App = {
           <div class="card" style="width: 18rem;">
             <div class="card-body">
             <h5 class="card-title"><b style="font-size: 20px;">${i}</b></h5>
-            <h6 class="card-subtitle mb-2 text-muted">${aPlantLog.time[0]} hrs ${aPlantLog.time[1]} min ${aPlantLog.time[2]} sec ago</h6>
+            <h6 class="card-subtitle mb-2 text-muted">${each.time[0]} hrs ${each.time[1]} min ${each.time[2]} sec ago</h6>
             <p class="card-text"><b style="font-size: 16px;">${aPlantLog.units}</b> units</p>
             <div class="card-link-div">
               <a href="#/lot/${i}" class="card-link text-right" style="color: blue;">Check lot</a>
