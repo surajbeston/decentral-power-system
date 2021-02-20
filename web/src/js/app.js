@@ -125,7 +125,7 @@ App = {
       if (App.EnergyToken != undefined) {
         break
       }
-      await App.sleep(500);
+      await App.sleep(200);
     }
     var plantData = await App.getPlantLog(id)
     var distributorData = await App.getDistributorLog(id)
@@ -203,7 +203,7 @@ App = {
       i++;
     }
     allPlantLogs = allPlantLogs.sort((a,b) => (a.timestamp < b.timestamp) ? 1 : -1)
-    console.log(allPlantLogs)
+    // console.log(allPlantLogs)
     i = App.noOfLots;
     allPlantLogs.forEach(each => {
       homeHtml += `
@@ -284,8 +284,8 @@ $(() => {
     App.load()
     App.hashChanged({newURL: window.location.href})
     window.onhashchange = App.hashChanged
-    var dateNow = new Date();
-    App.sleep(1000)
-    console.log(dateNow.getTime())
+    // var dateNow = new Date();
+    // App.sleep(1000)
+    // console.log(dateNow.getTime())
   })
 })
