@@ -156,7 +156,7 @@ App = {
               <h4>Cost: 10</h4>
             </p>
             <p class="each-flex-p">
-              <h4>Paid: ${distributorData.units * 10}</h4>
+              <h4>Paid: ${plantData.units * 10}</h4>
             </p>
             <div class="each-flex-p time-flex">
               <h5>${distributorData.time[0]} hrs ${distributorData.time[1]} min ${distributorData.time[2]} sec ago</h5>
