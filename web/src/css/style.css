@@ -10,6 +10,7 @@ a{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     
 }
 .search-container {
@@ -33,6 +34,16 @@ a{
 .card {
     margin: 10px;
 }
+.card-title {
+    margin-bottom: 40px;
+}
+.card-link {
+    /* justify-self: flex-end; */
+    text-align: right;
+}
+.card-link-div {
+    text-align: right;
+}
 .card-link:hover {
     text-decoration: underline;
 }
@@ -48,6 +59,9 @@ a{
     align-items: center;
 }
  .each-flex {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
      padding: 5px;
      width: 50%;
      background-color: rgb(176, 231, 189);
@@ -57,12 +71,28 @@ a{
      margin-bottom: 2vh;
      font-family: 'Patrick Hand', cursive;
  }
+ p {
+     margin-bottom: 0px;
+ }
+ 
  .each-flex-head {
     font-family: 'Comfortaa', cursive;
     font-weight: 900;
     text-align: center;
     margin-top: 5px;
-    margin-bottom: 4vh;
+    margin-bottom: 1vh;
+ }
+ .units-flex {
+     text-align: center;
+     margin-top: auto;
+     border-radius: 50%;
+     padding: 20px 30px;
+     box-shadow: 0 2px 5px rgb(154, 201, 165);
+    background-color: rgb(22, 124, 46);
+ }
+ .time-flex {
+    margin-top: auto;
+    margin-left: auto;
  }
   .down-arrow-image {
       transform: rotateZ(90deg);
@@ -73,6 +103,9 @@ a{
 @media screen and (max-width:1000px) {
     .each-flex{
         width: 70%; 
+    }
+    .search-box {
+        width: 80%;
     }
 }
 @media screen and (max-width:700px) {
