@@ -54,6 +54,9 @@ App = {
     App.EnergyToken.name(App.from_data).then(result => {
       console.log(result)
     })
+    App.EnergyToken.cost(App.from_data).then(result => {
+      console.log(result.toString())
+    })
 
     App.noOfLots = await App.getNoOfLots()
     // console.log(await App.getPlantLog(2))
@@ -72,9 +75,9 @@ App = {
     // }
     var data = await App.EnergyToken.plantLogs(lot, App.from_data)
     var units = data[0].toString()
-    var time = data[2].toString()
-    time = App.unixTimestampToDate(time)
-    return { units, time, lot }
+    var timestamp = data[2].toString()
+    var time = App.unixTimestampToDate(timestamp)
+    return { units, time, lot, timestamp }
   },
   getDistributorLog: async lot => {
     var data = await App.EnergyToken.distributorLogs(lot, App.from_data)
@@ -89,6 +92,10 @@ App = {
     var time = data[2].toString()
     time = App.unixTimestampToDate(time)
     return { units, time, lot}
+  },
+  getCost: async() => {
+    var data = await App.EnergyToken.cost(App.from_data)
+    return data.toString() 
   },
 
   render: async => {
@@ -123,6 +130,8 @@ App = {
     var plantData = await App.getPlantLog(id)
     var distributorData = await App.getDistributorLog(id)
     var consumerData = await App.getConsumerLog(id)
+    var cost = await App.getCost()
+    cost = parseInt(cost) + 3
     console.log(plantData)
     var plantHtml = `
             <h2 class="each-flex-head">Plant</h2>
@@ -143,9 +152,12 @@ App = {
              <p style="font-size: 20px;font-weight: 900;color: rgb(214, 214, 214);">${distributorData.units}</p> 
              <p style="color: rgb(214, 214, 214);">units</p>
             </div>
-           <!-- <p class="each-flex-p">
-              <h4>Lot: ${distributorData.lot}</h4>
-            </p> -->
+            <p class="each-flex-p" style="margin-top: 10px;">
+              <h4>Cost: 10</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Paid: ${distributorData.units * 10}</h4>
+            </p>
             <div class="each-flex-p time-flex">
               <h5>${distributorData.time[0]} hrs ${distributorData.time[1]} min ${distributorData.time[2]} sec ago</h5>
             </div>
@@ -156,9 +168,12 @@ App = {
              <p style="font-size: 20px;font-weight: 900;color: rgb(214, 214, 214);">${consumerData.units}</p> 
              <p style="color: rgb(214, 214, 214);">units</p>
             </div>
-           <!-- <p class="each-flex-p">
-              <h4>Lot: ${consumerData.lot}</h4>
-            </p> -->
+           <p class="each-flex-p" style="margin-top: 10px;">
+              <h4>Cost: ${cost}</h4>
+            </p>
+            <p class="each-flex-p">
+              <h4>Paid: ${consumerData.units * cost}</h4>
+            </p>
             <div class="each-flex-p time-flex">
               <h5>${consumerData.time[0]} hrs ${consumerData.time[1]} min ${consumerData.time[2]} sec ago</h5>
             </div>
@@ -180,29 +195,35 @@ App = {
       }
       await App.sleep(500);
     }
-    var i = App.noOfLots;
+    var i = 1;
     console.log(App.noOfLots)
-    while (i >= 1) {
+    while (i <= App.noOfLots) {
       var aPlantLog = await App.getPlantLog(i);
-      aPlantLog.id = i
       allPlantLogs.push(aPlantLog)
+      i++;
+    }
+    allPlantLogs = allPlantLogs.sort((a,b) => (a.timestamp < b.timestamp) ? 1 : -1)
+    console.log(allPlantLogs)
+    i = App.noOfLots;
+    allPlantLogs.forEach(each => {
       homeHtml += `
           <div class="card" style="width: 18rem;">
             <div class="card-body">
-            <h5 class="card-title"><b style="font-size: 20px;">${aPlantLog.id}</b></h5>
+            <h5 class="card-title"><b style="font-size: 20px;">${i}</b></h5>
             <h6 class="card-subtitle mb-2 text-muted">${aPlantLog.time[0]} hrs ${aPlantLog.time[1]} min ${aPlantLog.time[2]} sec ago</h6>
             <p class="card-text"><b style="font-size: 16px;">${aPlantLog.units}</b> units</p>
             <div class="card-link-div">
-              <a href="#/lot/${aPlantLog.id}" class="card-link text-right" style="color: blue;">Check Lot</a>
+              <a href="#/lot/${i}" class="card-link text-right" style="color: blue;">Check lot</a>
             </div>
             </div>
         </div>
       `
       i--;
-    }
+    })
    $('.flex-container').html(homeHtml)
     console.log(App.lots)
     App.lots = allPlantLogs
+    console.log(allPlantLogs)
   },
   searchLoaded: () => {
     $('.flex-container').hide();
