@@ -51,3 +51,13 @@ and the distributor has to be compensated for its service so the token's cost in
  
  In this way, all the transactions are cleared on each lot( here 5 mins). <br />
  In our demo **1 Unit = 0.1 micro KwH**
+
+
+# Run
+
+> git clone https://github.com/surajbeston/decentral-power-system
+> cd decentral-power-system && cd web
+> npm install
+> npm run dev
+> Install MetaMask in Browser and use this mnemonics to avoid any error for now: "glass vote athlete love tower trumpet scout mean horse tongue receive dress" 
+> Move to Kovan TestNet on MetaMask
