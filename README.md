@@ -55,9 +55,9 @@ and the distributor has to be compensated for its service so the token's cost in
 
 # Run
 
-> git clone https://github.com/surajbeston/decentral-power-system
-> cd decentral-power-system && cd web
-> npm install
-> npm run dev
-> Install MetaMask in Browser and use this mnemonics to avoid any error for now: "glass vote athlete love tower trumpet scout mean horse tongue receive dress" 
-> Move to Kovan TestNet on MetaMask
+> git clone https://github.com/surajbeston/decentral-power-system <br />
+> cd decentral-power-system && cd web <br />
+> npm install <br/>
+> npm run dev <br/>
+> Install MetaMask in Browser and use this mnemonics to avoid any error for now: "glass vote athlete love tower trumpet scout mean horse tongue receive dress" <br/>>
+> Move to Kovan TestNet on MetaMask <br />
