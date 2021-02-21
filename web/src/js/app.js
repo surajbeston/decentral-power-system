@@ -221,9 +221,9 @@ App = {
       i--;
     })
    $('.flex-container').html(homeHtml)
-    console.log(App.lots)
+    // console.log(App.lots)
     App.lots = allPlantLogs
-    console.log(allPlantLogs)
+    // console.log(allPlantLogs)
   },
   searchLoaded: () => {
     $('.flex-container').hide();
@@ -248,6 +248,9 @@ App = {
      App.lotDetail(lot_id);
    }
    else if (toUrl == "") {
+     App.Homepage();
+   }
+   else {
      App.Homepage();
    }
   },
@@ -285,7 +288,11 @@ $(() => {
     App.hashChanged({newURL: window.location.href})
     window.onhashchange = App.hashChanged
     alert(` Install MetaMask and turn to kovan test net with following mnemonics
+
     """glass vote athlete love tower trumpet scout mean horse tongue receive dress"""
+
+
+    Also Wait for Sometime to Load
     `)
     // var dateNow = new Date();
     // App.sleep(1000)
