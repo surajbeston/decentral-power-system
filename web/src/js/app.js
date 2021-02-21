@@ -284,6 +284,9 @@ $(() => {
     App.load()
     App.hashChanged({newURL: window.location.href})
     window.onhashchange = App.hashChanged
+    alert(` Install MetaMask and turn to kovan test net with following mnemonics
+    """glass vote athlete love tower trumpet scout mean horse tongue receive dress"""
+    `)
     // var dateNow = new Date();
     // App.sleep(1000)
     // console.log(dateNow.getTime())

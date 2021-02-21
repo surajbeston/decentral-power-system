@@ -2,6 +2,7 @@
 
 [![front.jpg](https://i.postimg.cc/7PNyZsfs/front.jpg)](https://postimg.cc/F116Pxb3)
 
+> website on: https://decentralized-power.netlify.app/#/  
 ## Introduction 
 
 This project intends to transfer electric power from power plant, through distributor networks and to consumers in a transparent and
@@ -54,6 +55,7 @@ and the distributor has to be compensated for its service so the token's cost in
 
 
 # Run
+> website on: https://decentralized-power.netlify.app/#/  
 
 > git clone https://github.com/surajbeston/decentral-power-system <br />
 > cd decentral-power-system && cd web <br />
