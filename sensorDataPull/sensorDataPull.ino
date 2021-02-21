@@ -1,7 +1,9 @@
-//#include <Wire.h>
-//#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
-//LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+int count = 0;
 
 unsigned long plantTime = 0;
 unsigned long plantTime1 = 0;
@@ -46,7 +48,8 @@ float consumerEnergy = 0;
 
 void setup()
 {
-  //lcd.init();
+  lcd.init();
+  lcd.clear();
   Serial.begin(9600);
 }
 
@@ -163,9 +166,13 @@ void loop()
   Serial.print(energy3);
   Serial.print(" consumer\n");
   Serial.println(plantTime);
-//  lcd.setCursor(0,0);
-//  lcd.print("Plant: ");
-//  lcd.print(plantEnergy);
   
-//  delay(1000);
+  lcd.backlight();
+  
+  lcd.setCursor(0,0);
+  lcd.print("Plant: ");
+  lcd.print(plantEnergy);
+  lcd.setCursor(0,1);
+  lcd.print("Distributor:");
+  lcd.print(distributorEnergy);
 }
