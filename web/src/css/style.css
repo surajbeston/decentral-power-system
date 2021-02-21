@@ -33,6 +33,7 @@ a{
 
 .card {
     margin: 10px;
+    border: 2px solid rgb(177, 177, 177);
 }
 .card-title {
     margin-bottom: 40px;
